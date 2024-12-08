@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "moduleDetection": "force",
+    "lib": ["es2023", "dom"]
+  }
+}
