@@ -59,7 +59,7 @@ function part1(y: number, x: number) {
     }
   }
 
-  console.log("expect 5239", path.size);
+  console.log(path.size);
   return path;
 }
 
@@ -100,6 +100,6 @@ function part2(sy: number, sx: number, p1path: Set<number>) {
     grid[try_y][try_x] = ".";
   }
 
-  console.log("expect 1753", c2);
+  console.log(c2);
 }
 part2(sy, sx, part1(sy, sx));

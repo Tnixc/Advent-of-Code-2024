@@ -20,7 +20,6 @@ for (let i = 0; i < 4; i++) {
   grid.push(Array(grid[0].length).fill("_"));
 }
 
-console.log(grid);
 let c1 = 0;
 for (let y = 4; y < grid.length - 4; y++) {
   for (let x = 4; x < grid[0].length - 4; x++) {
