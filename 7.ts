@@ -1,3 +1,12 @@
+const test = `190: 10 19
+3267: 81 40 27
+83: 17 5
+156: 15 6
+7290: 6 8 6 15
+161011: 16 10 13
+192: 17 8 14
+21037: 9 7 18 13
+292: 11 6 16 20`;
 
 const vals = input
   .split("\n")
@@ -11,7 +20,7 @@ const vals = input
   ]);
 
 const binCache = new Map();
-function dec2bin(dec) {
+function dec2bin(dec: number) {
   if (!binCache.has(dec)) {
     binCache.set(
       dec,
@@ -25,7 +34,7 @@ function dec2bin(dec) {
 }
 
 const triCache = new Map();
-function dec2tri(dec) {
+function dec2tri(dec: number) {
   if (!triCache.has(dec)) {
     triCache.set(
       dec,
@@ -38,14 +47,13 @@ function dec2tri(dec) {
   return triCache.get(dec);
 }
 
-// Part 1
 let c1 = 0;
 let startTime = performance.now();
 const ok = new Set();
 for (const row of vals) {
   let s = 0;
-  const target = row[0];
-  const numbers = row[1];
+  const target = row[0] as number;
+  const numbers = row[1] as number[];
   const maxLen = numbers.length;
   let maxProduct = numbers[0];
   for (let i = 1; i < maxLen; i++) {
@@ -89,12 +97,9 @@ for (const row of vals) {
 }
 
 console.log(c1);
-let endTime = performance.now();
-console.log(`p1: ${endTime - startTime}ms`);
 
 // Part 2
-startTime = performance.now();
-const concat = (a, b) => {
+function concat(a: number, b: number) {
   if (b < 10) return a * 10 + b;
   if (b < 100) return a * 100 + b;
   if (b < 1000) return a * 1000 + b;
@@ -103,22 +108,18 @@ const concat = (a, b) => {
   if (b < 1000000) return a * 1000000 + b;
   if (b < 10000000) return a * 10000000 + b;
   return a * Math.pow(10, Math.floor(Math.log10(b) + 1)) + b;
-};
+}
 
 let c2 = 0;
 for (const row of vals) {
-  let s = 0;
-  const target = row[0];
-
+  const target = row[0] as number;
   if (ok.has(target)) continue;
 
-  const numbers = row[1];
+  const numbers = row[1] as number[];
   const maxLen = numbers.length;
   const pattern = new Array(maxLen).fill(0);
-  if (target === numbers.reduce((a, b) => a + b)) {
-    c2 += target;
-    continue;
-  }
+
+  let s = 0;
   while (true) {
     const opPattern = dec2tri(s);
     if (opPattern.length > maxLen) break;
@@ -128,7 +129,7 @@ for (const row of vals) {
       pattern[maxLen - opPattern.length + i] = opPattern[i];
     }
 
-    let op_res = numbers[0];
+    let op_res = numbers[0] as number;
     let exceeded = false;
 
     for (let i = 1; i < maxLen && !exceeded; i++) {
@@ -156,5 +157,3 @@ for (const row of vals) {
 }
 
 console.log(c2);
-endTime = performance.now();
-console.log(`p2: ${endTime - startTime}ms`);

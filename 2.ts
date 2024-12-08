@@ -15,13 +15,7 @@ function isIncreasing(arr: number[], canFail: boolean) {
   let needsFail = false;
   let failIndex = 0;
   for (let i = 0; i < arr.length - 1; i++) {
-    if (
-      !(
-        arr[i + 1] - arr[i] === 1 ||
-        arr[i + 1] - arr[i] === 2 ||
-        arr[i + 1] - arr[i] === 3
-      )
-    ) {
+    if (!(arr[i + 1] - arr[i] === 1 || arr[i + 1] - arr[i] === 2 || arr[i + 1] - arr[i] === 3)) {
       needsFail = true;
       failIndex = i;
       break;
@@ -32,10 +26,7 @@ function isIncreasing(arr: number[], canFail: boolean) {
   }
   if (needsFail && canFail) {
     let hasFail = false;
-    if (
-      !isIncreasing(arr.toSpliced(failIndex, 1), false) &&
-      !isIncreasing(arr.toSpliced(failIndex + 1, 1), false)
-    ) {
+    if (!isIncreasing(arr.toSpliced(failIndex, 1), false) && !isIncreasing(arr.toSpliced(failIndex + 1, 1), false)) {
       hasFail = true;
     }
     return !hasFail;
@@ -48,13 +39,7 @@ function isDecreasing(arr: number[], canFail: boolean) {
   let needsFail = false;
   let failIndex = 0;
   for (let i = 0; i < arr.length - 1; i++) {
-    if (
-      !(
-        arr[i] - arr[i + 1] === 1 ||
-        arr[i] - arr[i + 1] === 2 ||
-        arr[i] - arr[i + 1] === 3
-      )
-    ) {
+    if (!(arr[i] - arr[i + 1] === 1 || arr[i] - arr[i + 1] === 2 || arr[i] - arr[i + 1] === 3)) {
       needsFail = true;
       failIndex = i;
       break;
@@ -65,10 +50,7 @@ function isDecreasing(arr: number[], canFail: boolean) {
   }
   if (needsFail && canFail) {
     let hasFail = false;
-    if (
-      !isDecreasing(arr.toSpliced(failIndex, 1), false) &&
-      !isDecreasing(arr.toSpliced(failIndex + 1, 1), false)
-    ) {
+    if (!isDecreasing(arr.toSpliced(failIndex, 1), false) && !isDecreasing(arr.toSpliced(failIndex + 1, 1), false)) {
       hasFail = true;
     }
     return !hasFail;

@@ -12,19 +12,20 @@ const test = `............
 ............
 ............`;
 
-function encode(a, b, c = 0) {
+function encode(a: number, b: number, c = 0) {
   return (a << 10) | (b << 2) | c;
 }
 
-function reduce(numerator, denominator) {
-  var gcd = function gcd(a, b) {
-    return b ? gcd(b, a % b) : a;
-  };
-  gcd = gcd(numerator, denominator);
-  return [numerator / gcd, denominator / gcd];
+// https://stackoverflow.com/questions/4652468/is-there-a-javascript-function-that-reduces-a-fraction
+function gcd(a: number, b: number): number {
+  return b ? gcd(b, a % b) : a;
+}
+function reduce(numerator: number, denominator: number) {
+  const cf = gcd(numerator, denominator);
+  return [numerator / cf, denominator / cf];
 }
 
-function main(str) {
+function main(str: string) {
   const grid = str.split("\n").map((line) => line.split(""));
   const antinodes = new Set();
   const antinodes2 = new Set();

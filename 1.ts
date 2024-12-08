@@ -14,7 +14,5 @@ const sol = input
 
 console.log([
   sol[0].map((x, i) => Math.abs(x - sol[1][i])).reduce((prev, x) => prev + x),
-  sol[0]
-    .map((x, _) => Math.abs(x * sol[1].filter((k) => k === x).length))
-    .reduce((prev, x) => prev + x),
+  sol[0].map((x, _) => Math.abs(x * sol[1].filter((k) => k === x).length)).reduce((prev, x) => prev + x),
 ]);
