@@ -16,15 +16,6 @@ function encode(a: number, b: number, c = 0) {
   return (a << 10) | (b << 2) | c;
 }
 
-// https://stackoverflow.com/questions/4652468/is-there-a-javascript-function-that-reduces-a-fraction
-function gcd(a: number, b: number): number {
-  return b ? gcd(b, a % b) : a;
-}
-function reduce(numerator: number, denominator: number) {
-  const cf = gcd(numerator, denominator);
-  return [numerator / cf, denominator / cf];
-}
-
 function main(str: string) {
   const grid = str.split("\n").map((line) => line.split(""));
   const antinodes = new Set();
@@ -46,21 +37,21 @@ function main(str: string) {
             if (grid[sy - dy] && grid[sy - dy][sx - dx]) {
               antinodes.add(encode(sy - dy, sx - dx));
             }
-            const [stepY, stepX] = reduce(dy, dx);
-            let by = sy - stepY;
-            let bx = sx - stepX;
+
+            let by = sy - dy;
+            let bx = sx - dx;
             while (grid[by]?.[bx]) {
               antinodes2.add(encode(by, bx));
-              by -= stepY;
-              bx -= stepX;
+              by -= dy;
+              bx -= dx;
             }
 
-            let fy = sy + stepY;
-            let fx = sx + stepX;
+            let fy = sy + dy;
+            let fx = sx + dx;
             while (grid[fy]?.[fx]) {
               antinodes2.add(encode(fy, fx));
-              fy += stepY;
-              fx += stepX;
+              fy += dy;
+              fx += dx;
             }
           }
         }
