@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "1": "bun src/1.ts",
+    "2": "bun src/2.ts",
+    "3": "bun src/3.ts",
+    "4": "bun src/4.ts",
+    "5": "bun src/5.ts",
+    "6": "bun src/6.ts",
+    "7": "bun src/7.ts",
+    "8": "bun src/8.ts",
+    "9": "bun src/9.ts",
+    "10": "bun src/10.ts",
+    "11": "bun src/11.ts",
+    "12": "bun src/12.ts",
+    "13": "bun src/13.ts",
+    "14": "bun src/14.ts",
+    "15": "bun src/15.ts",
+    "16": "bun src/16.ts",
+    "17": "bun src/17.ts",
+    "18": "bun src/18.ts",
+    "19": "bun src/19.ts",
+    "20": "bun src/20.ts",
+    "21": "bun src/21.ts",
+    "22": "bun src/22.ts",
+    "23": "bun src/23.ts",
+    "24": "bun src/24.ts",
+    "25": "bun src/25.ts"
+  }
+}
