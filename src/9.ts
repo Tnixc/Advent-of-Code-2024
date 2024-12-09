@@ -6,10 +6,10 @@ const t3 = `12345`;
 const chars = input.split("");
 function p1() {
   let map = [];
-  let k = 0;
+  let isFree = false;
   let id = 0;
   for (const char of chars) {
-    if (k % 2 === 0) {
+    if (!isFree) {
       for (let j = 0; j < Number(char); j++) {
         map.push(id);
       }
@@ -19,27 +19,26 @@ function p1() {
         map.push(-1);
       }
     }
-    k++;
+    isFree = !isFree;
   }
 
-  let res = [];
-  for (let i = 0; i < map.length; i++) {
-    if (i > map.length) break;
-    if (map.findLastIndex((x) => x != -1) < i) break;
-    if (map[i] != -1) {
+  const res = [];
+  let itemIndex = map.length - 1;
+  for (let i = 0; i <= itemIndex; i++) {
+    if (map[i] !== -1) {
       res.push(map[i]);
-      map[i] = -1;
     } else {
-      const rem = map.findLast((x) => x != -1);
-      if (Number(rem)) {
-        res.push(rem);
+      while (itemIndex > i && map[itemIndex] === -1) {
+        itemIndex--;
       }
-      map.splice(map.lastIndexOf(rem), 1);
+      if (itemIndex > i) {
+        res.push(map[itemIndex]);
+        itemIndex--;
+      }
     }
   }
 
   const v = res;
-
   let c1 = 0;
   for (let k = 0; k < v.length; k++) {
     c1 = c1 + k * v[k];
