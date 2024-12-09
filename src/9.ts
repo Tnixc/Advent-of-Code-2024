@@ -1,8 +1,9 @@
 
 const test = `2333133121414131402`;
-const t2 = `2289937361462537565743654392191430243285795130435159294739821058371166572674439596984`;
+const t2 = `2289937361462537565743654392191430243285795130435159294739821058371166572674439596984`; //expect 532512
 const t3 = `12345`;
-const chars = test.split("");
+
+const chars = input.split("");
 function p1() {
   let map = [];
   let k = 0;
@@ -15,7 +16,7 @@ function p1() {
       id++;
     } else {
       for (let j = 0; j < Number(char); j++) {
-        map.push(".");
+        map.push(-1);
       }
     }
     k++;
@@ -23,15 +24,17 @@ function p1() {
 
   let res = [];
   for (let i = 0; i < map.length; i++) {
-    if (map[i] != ".") {
+    if (i > map.length) break;
+    if (map.findLastIndex((x) => x != -1) < i) break;
+    if (map[i] != -1) {
       res.push(map[i]);
-      map[i] = ".";
+      map[i] = -1;
     } else {
-      const rem = map.findLast((x) => x != ".");
+      const rem = map.findLast((x) => x != -1);
       if (Number(rem)) {
         res.push(rem);
       }
-      map[map.lastIndexOf(rem)] = ".";
+      map.splice(map.lastIndexOf(rem), 1);
     }
   }
 
@@ -44,93 +47,85 @@ function p1() {
   console.log(c1);
 }
 
-function split_contiguous(arr: any[]) {
-  var res = [];
-  var prev = arr[0];
-  var prevcount = 1;
-  for (var i = 1; i < arr.length; i++) {
-    if (arr[i] !== prev) {
-      res.push({ item: prev, count: prevcount });
-      prevcount = 0;
-    }
-    prevcount++;
-    prev = arr[i];
-  }
-  res.push({ item: prev, count: prevcount });
-  return res;
-}
-
 function p2() {
-  const map = [];
+  const fileSpans = [];
+  const freeSpans = [];
   let k = 0;
-  let id = 0;
   for (const char of chars) {
     if (k % 2 === 0) {
-      for (let j = 0; j < Number(char); j++) {
-        map.push(id);
-      }
-      id++;
+      fileSpans.push(Number(char));
     } else {
-      for (let j = 0; j < Number(char); j++) {
-        map.push(".");
-      }
+      freeSpans.push(Number(char));
     }
     k++;
   }
+  const disk = []; // -1 is empty space, expanded representation
+  const filePositions = new Map(); // map disk -> id: where it starts
+  let fileId = 0;
 
-  let con = split_contiguous(map);
-  for (let goal_index = con.length - 1; goal_index >= 0; goal_index--) {
-    if (con[goal_index].item != ".") {
-      let search_index = 0;
-      while (search_index <= goal_index) {
-        if (
-          con[search_index].item === "." &&
-          con[search_index].count >= con[goal_index].count
-        ) {
-          const search_count = con[search_index].count;
-          const goal_count = con[goal_index].count;
-          const remaining = search_count - goal_count;
-          con[search_index].item = con[goal_index].item;
-          con[goal_index].item = ".";
-          con.splice(
-            search_index,
-            1,
-            {
-              item: con[search_index].item,
-              count: goal_count,
-            },
-            {
-              item: ".",
-              count: remaining,
-            },
-          );
-          break;
+  // basically rebuild the disk unsorted first
+  for (let fileIndex = 0; fileIndex < fileSpans.length; fileIndex++) {
+    const startPosition = disk.length;
+    // place the current file's blocks (represented by fileid)
+    for (let i = 0; i < fileSpans[fileIndex]; i++) {
+      disk.push(fileId);
+    }
+    filePositions.set(fileId, startPosition);
+    fileId++;
+    // add empty spaces (-1) after the file if specified
+    if (fileIndex < freeSpans.length) {
+      for (let i = 0; i < freeSpans[fileIndex]; i++) {
+        disk.push(-1);
+      }
+    }
+  }
+
+  for (
+    let currentFile = fileSpans.length - 1;
+    currentFile >= 0;
+    currentFile--
+  ) {
+    const originalStart = filePositions.get(currentFile);
+    let fileSize = fileSpans[currentFile];
+
+    let foundSpaceStart = -1; // starting position of potential empty space
+    let emptySpaceCount = 0; //  counter for continuous empty blocks
+
+    // Scan disk from beginning up to file's current position looking for continuous empty space large enough for the file
+    for (let position = 0; position < originalStart; position++) {
+      if (disk[position] === -1) {
+        // found the start of an empty block
+        if (foundSpaceStart === -1) {
+          // Mark the start of a new empty region
+          foundSpaceStart = position;
         }
-        search_index++;
+        emptySpaceCount++;
+      } else {
+        // empty region interrupted by a file
+        foundSpaceStart = -1;
+        emptySpaceCount = 0;
+      }
+
+      // enough continuous empty space to fit the file
+      if (emptySpaceCount === fileSize) {
+        // move the file to the new position, each item one by one
+        for (let offset = 0; offset < fileSize; offset++) {
+          disk[foundSpaceStart + offset] = currentFile;
+          disk[originalStart + offset] = -1;
+        }
+        break;
       }
     }
-    const ncon = [];
-    for (const sec of con) {
-      for (let i = 0; i < sec.count; i++) {
-        if (sec.count > 0) ncon.push(sec.item);
-      }
-    }
-    con = split_contiguous(ncon);
-    // console.log(ncon.join(""));
   }
-  const res = [];
-  for (const sec of con) {
-    for (let i = 0; i < sec.count; i++) {
-      res.push(sec.item);
-    }
+  const final = [];
+  for (let k = 0; k < disk.length; k++) {
+    if (disk[k] > 0) final.push(k * disk[k]);
   }
-  console.log(res);
-  let c2 = 0;
-  for (let k = 0; k < res.length; k++) {
-    if (res[k] != ".") {
-      c2 = c2 + k * res[k];
-    }
-  }
-  console.log(c2);
+  console.log(final.reduce((a, b) => a + b));
 }
+console.time("p1");
+p1();
+console.timeEnd("p1");
+console.time("p2");
 p2();
+console.timeEnd("p2");
