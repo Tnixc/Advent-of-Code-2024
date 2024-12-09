@@ -1,7 +1,8 @@
 
 const test = `2333133121414131402`;
 const t2 = `2289937361462537565743654392191430243285795130435159294739821058371166572674439596984`;
-const chars = input.split("");
+const t3 = `12345`;
+const chars = test.split("");
 function p1() {
   let map = [];
   let k = 0;
@@ -43,20 +44,18 @@ function p1() {
   console.log(c1);
 }
 
-function consec(arr: any[]) {
+function split_contiguous(arr: any[]) {
   var res = [];
   var prev = arr[0];
   var prevcount = 1;
   for (var i = 1; i < arr.length; i++) {
     if (arr[i] !== prev) {
-      let p = prevcount * prev.toString().length;
       res.push({ item: prev, count: prevcount });
       prevcount = 0;
     }
     prevcount++;
     prev = arr[i];
   }
-  let p = prevcount * prev.toString().length;
   res.push({ item: prev, count: prevcount });
   return res;
 }
@@ -79,35 +78,45 @@ function p2() {
     k++;
   }
 
-  let con = consec(map);
-  for (let i = con.length - 1; i >= 0; i--) {
+  let con = split_contiguous(map);
+  for (let goal_index = con.length - 1; goal_index >= 0; goal_index--) {
+    if (con[goal_index].item != ".") {
+      let search_index = 0;
+      while (search_index <= goal_index) {
+        if (
+          con[search_index].item === "." &&
+          con[search_index].count >= con[goal_index].count
+        ) {
+          const search_count = con[search_index].count;
+          const goal_count = con[goal_index].count;
+          const remaining = search_count - goal_count;
+          con[search_index].item = con[goal_index].item;
+          con[goal_index].item = ".";
+          con.splice(
+            search_index,
+            1,
+            {
+              item: con[search_index].item,
+              count: goal_count,
+            },
+            {
+              item: ".",
+              count: remaining,
+            },
+          );
+          break;
+        }
+        search_index++;
+      }
+    }
     const ncon = [];
     for (const sec of con) {
       for (let i = 0; i < sec.count; i++) {
-        ncon.push(sec.item);
+        if (sec.count > 0) ncon.push(sec.item);
       }
     }
-
-    con = consec(ncon);
+    con = split_contiguous(ncon);
     // console.log(ncon.join(""));
-    if (con[i].item != ".") {
-      let k = 0;
-      while (k < i) {
-        if (con[k].item === "." && con[k].count >= con[i].count) {
-          const ok = con[k].count;
-          const oi = con[i].count;
-          con[k].count = oi;
-          con[k].item = con[i].item;
-          con[i].item = ".";
-          con.splice(k + 1, 0, {
-            item: ".",
-            count: ok - oi,
-          });
-          break;
-        }
-        k++;
-      }
-    }
   }
   const res = [];
   for (const sec of con) {
@@ -115,6 +124,7 @@ function p2() {
       res.push(sec.item);
     }
   }
+  console.log(res);
   let c2 = 0;
   for (let k = 0; k < res.length; k++) {
     if (res[k] != ".") {
@@ -123,5 +133,4 @@ function p2() {
   }
   console.log(c2);
 }
-
 p2();
