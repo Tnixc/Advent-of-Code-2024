@@ -79,11 +79,7 @@ function p2() {
     }
   }
 
-  for (
-    let currentFile = fileSpans.length - 1;
-    currentFile >= 0;
-    currentFile--
-  ) {
+  for (let currentFile = fileSpans.length - 1; currentFile >= 0; currentFile--) {
     const originalStart = filePositions.get(currentFile);
     let fileSize = fileSpans[currentFile];
 
