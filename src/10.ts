@@ -19,8 +19,8 @@ const dirs = [
   [0, +1],
   [+1, 0],
 ];
-const trailHeadtoPeaks: string[] = [];
 
+const trailHeadtoPeaks: string[] = [];
 function hike(origin: string, y: number, x: number) {
   if (grid[y][x] === 9) {
     trailHeadtoPeaks.push(`${origin} ${y} ${x}`);
