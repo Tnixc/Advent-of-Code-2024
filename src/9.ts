@@ -3,7 +3,7 @@ const test = `2333133121414131402`;
 const t2 = `2289937361462537565743654392191430243285795130435159294739821058371166572674439596984`; //expect 532512
 const t3 = `12345`;
 
-const chars = i3.split("");
+const chars = input.split("");
 function p1() {
   let map = [];
   let isFree = false;
@@ -16,7 +16,7 @@ function p1() {
       id++;
     } else {
       for (let j = 0; j < Number(char); j++) {
-        map.push(-1);
+        map.push(null);
       }
     }
     isFree = !isFree;
@@ -25,10 +25,10 @@ function p1() {
   const res = [];
   let itemIndex = map.length - 1;
   for (let i = 0; i <= itemIndex; i++) {
-    if (map[i] !== -1) {
+    if (map[i] !== null) {
       res.push(map[i]);
     } else {
-      while (itemIndex > i && map[itemIndex] === -1) {
+      while (itemIndex > i && map[itemIndex] === null) {
         itemIndex--;
       }
       if (itemIndex > i) {
@@ -58,7 +58,7 @@ function p2() {
     }
     isFree = !isFree;
   }
-  const disk = []; // -1 is empty space, expanded representation
+  const disk = []; // null is empty space, expanded representation
   const filePositions = new Map(); // map disk -> id: where it starts
   let fileId = 0;
 
@@ -71,10 +71,10 @@ function p2() {
     }
     filePositions.set(fileId, startPosition);
     fileId++;
-    // add empty spaces (-1) after the file if specified
+    // add empty spaces (null) after the file if specified
     if (fileIndex < freeSpans.length) {
       for (let i = 0; i < freeSpans[fileIndex]; i++) {
-        disk.push(-1);
+        disk.push(null);
       }
     }
   }
@@ -87,21 +87,21 @@ function p2() {
     const originalStart = filePositions.get(currentFile);
     let fileSize = fileSpans[currentFile];
 
-    let foundSpaceStart = -1; // starting position of potential empty space
+    let foundSpaceStart = null; // starting position of potential empty space
     let emptySpaceCount = 0; //  counter for continuous empty blocks
 
     // Scan disk from beginning up to file's current position looking for continuous empty space large enough for the file
     for (let position = 0; position < originalStart; position++) {
-      if (disk[position] === -1) {
+      if (disk[position] === null) {
         // found the start of an empty block
-        if (foundSpaceStart === -1) {
+        if (foundSpaceStart === null) {
           // Mark the start of a new empty region
           foundSpaceStart = position;
         }
         emptySpaceCount++;
       } else {
         // empty region interrupted by a file
-        foundSpaceStart = -1;
+        foundSpaceStart = null;
         emptySpaceCount = 0;
       }
 
@@ -110,7 +110,7 @@ function p2() {
         // move the file to the new position, each item one by one
         for (let offset = 0; offset < fileSize; offset++) {
           disk[foundSpaceStart + offset] = currentFile;
-          disk[originalStart + offset] = -1;
+          disk[originalStart + offset] = null;
         }
         break;
       }
