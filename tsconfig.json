@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "moduleDetection": "force",
-    "lib": ["es2023", "dom"]
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "dom"]
   }
 }

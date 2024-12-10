@@ -48,7 +48,6 @@ function part1(y: number, x: number) {
     if (newY < 0 || newY >= grid.length || newX < 0 || newX >= grid[0].length) {
       break;
     }
-
     if (grid[newY][newX] !== "#") {
       //move
       y = newY;
@@ -58,7 +57,6 @@ function part1(y: number, x: number) {
       heading++;
     }
   }
-
   console.log(path.size);
   return path;
 }
