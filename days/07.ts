@@ -49,9 +49,8 @@ function dec2tri(dec: number) {
   }
   return triCache.get(dec);
 }
-
+console.time("Part 1");
 let c1 = 0;
-let startTime = performance.now();
 const ok = new Set();
 for (const row of vals) {
   let s = 0;
@@ -100,7 +99,8 @@ for (const row of vals) {
 }
 
 console.log(c1);
-
+console.timeEnd("Part 1");
+console.time("Part 2");
 // Part 2
 function concat(a: number, b: number) {
   if (b < 10) return a * 10 + b;
@@ -160,3 +160,4 @@ for (const row of vals) {
 }
 
 console.log(c2);
+console.timeEnd("Part 2");

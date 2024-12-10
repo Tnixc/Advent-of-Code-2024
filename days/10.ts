@@ -13,6 +13,7 @@ const t2 = `89010123
 01329801
 10456732`;
 
+console.time("");
 const grid = INPUT.split("\n").map((x) => x.split("").map((y) => Number(y)));
 const dirs = [
   [-1, 0],
@@ -41,5 +42,5 @@ for (let y = 0; y < grid.length; y++) {
     }
   }
 }
-
 console.log([new Set(trailHeadtoPeaks).size, trailHeadtoPeaks.length]);
+console.timeEnd("");

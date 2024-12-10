@@ -102,4 +102,9 @@ function part2(sy: number, sx: number, p1path: Set<number>) {
 
   console.log(c2);
 }
-part2(sy, sx, part1(sy, sx));
+console.time("Part 1");
+const p1 = part1(sy, sx);
+console.timeEnd("Part 1");
+console.time("Part 2");
+part2(sy, sx, p1);
+console.timeEnd("Part 2");

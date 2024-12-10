@@ -120,9 +120,9 @@ function p2() {
   }
   console.log(final.reduce((a, b) => a + b));
 }
-console.time("p1");
+console.time("Part 1");
 p1();
-console.timeEnd("p1");
-console.time("p2");
+console.timeEnd("Part 1");
+console.time("Part 2");
 p2();
-console.timeEnd("p2");
+console.timeEnd("Part 2");

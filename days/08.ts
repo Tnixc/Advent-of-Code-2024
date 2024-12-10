@@ -63,4 +63,6 @@ function main(str: string) {
 
   return [antinodes.size, antinodes2.size];
 }
+console.time("");
 console.log(main(input));
+console.timeEnd("");
