@@ -1,3 +1,6 @@
+import { INPUT } from "@/06";
+const input = INPUT;
+
 const _test = `....#.....
 .........#
 ..........

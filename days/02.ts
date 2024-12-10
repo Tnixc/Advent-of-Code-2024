@@ -1,3 +1,11 @@
+import { INPUT } from "@/02";
+const input = INPUT.split("\n").map((x) =>
+  x
+    .trim()
+    .split(" ")
+    .map((y) => Number(y)),
+);
+console.log(input);
 let c1 = 0;
 for (let report of input) {
   if (isDecreasing(report, false) || isIncreasing(report, false)) c1 += 1;

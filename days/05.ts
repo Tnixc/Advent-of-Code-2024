@@ -1,4 +1,6 @@
-const test_vals = `47|53
+import { INPUT_A, INPUT_B } from "@/05";
+
+const test_a = `47|53
 97|13
 97|61
 97|47
@@ -20,15 +22,15 @@ const test_vals = `47|53
 75|13
 53|13`;
 
-const test_lines = `75,47,61,53,29
+const test_b = `75,47,61,53,29
 97,61,53,29,13
 75,29,13
 75,97,47,61,53
 61,13,29
 97,13,75,29,47`;
 
-const rules = input1.split("\n").map((x) => x.split("|").map((y) => Number(y)));
-const lines = input2.split("\n").map((x) => x.split(",").map((y) => Number(y)));
+const rules = INPUT_A.split("\n").map((x) => x.split("|").map((y) => Number(y)));
+const lines = INPUT_B.split("\n").map((x) => x.split(",").map((y) => Number(y)));
 
 const passed = [];
 for (let line of lines) {

@@ -1,3 +1,5 @@
+import { INPUT } from "@/04";
+const input = INPUT;
 const t = `M.S.
 .A..
 M.S.

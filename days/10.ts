@@ -1,3 +1,5 @@
+import { INPUT } from "@/10";
+
 const test = `0123
 1234
 8765
@@ -11,7 +13,7 @@ const t2 = `89010123
 01329801
 10456732`;
 
-const grid = input.split("\n").map((x) => x.split("").map((y) => Number(y)));
+const grid = INPUT.split("\n").map((x) => x.split("").map((y) => Number(y)));
 const dirs = [
   [-1, 0],
   [0, -1],

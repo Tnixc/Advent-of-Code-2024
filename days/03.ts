@@ -1,3 +1,5 @@
+import { INPUT } from "@/03";
+const input = INPUT;
 const p1rx = /[Mm]ul\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\)/g;
 const p1 = input
   .match(p1rx)!

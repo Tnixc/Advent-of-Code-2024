@@ -1,5 +1,6 @@
-const sol = input
-  .split("\n")
+import { INPUT } from "@/01";
+
+const sol = INPUT.split("\n")
   .map((x) => x.split("   ").map((x) => Number(x)))
   .reduce(
     (prev, x) => {
