@@ -1,4 +1,3 @@
-
 const sol = input
   .split("\n")
   .map((x) => x.split("   ").map((x) => Number(x)))

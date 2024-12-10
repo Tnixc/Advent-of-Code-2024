@@ -1,4 +1,3 @@
-
 const t = `M.S.
 .A..
 M.S.
