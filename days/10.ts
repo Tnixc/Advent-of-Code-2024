@@ -26,11 +26,12 @@ const trailHeadtoPeaks: string[] = [];
 function hike(origin: string, y: number, x: number) {
   if (grid[y][x] === 9) {
     trailHeadtoPeaks.push(`${origin} ${y} ${x}`);
-  }
-  for (const direction of dirs) {
-    const [dy, dx] = direction;
-    if (grid[y - dy]?.at(x - dx) && grid[y - dy][x - dx] === grid[y][x] + 1) {
-      hike(origin, y - dy, x - dx);
+  } else {
+    for (const direction of dirs) {
+      const [dy, dx] = direction;
+      if (grid[y - dy]?.at(x - dx) && grid[y - dy][x - dx] === grid[y][x] + 1) {
+        hike(origin, y - dy, x - dx);
+      }
     }
   }
 }
