@@ -3,7 +3,7 @@ const test = `2333133121414131402`;
 const t2 = `2289937361462537565743654392191430243285795130435159294739821058371166572674439596984`; //expect 532512
 const t3 = `12345`;
 
-const chars = input.split("");
+const chars = i3.split("");
 function p1() {
   let map = [];
   let isFree = false;
@@ -49,14 +49,14 @@ function p1() {
 function p2() {
   const fileSpans = [];
   const freeSpans = [];
-  let k = 0;
+  let isFree = false;
   for (const char of chars) {
-    if (k % 2 === 0) {
+    if (!isFree) {
       fileSpans.push(Number(char));
     } else {
       freeSpans.push(Number(char));
     }
-    k++;
+    isFree = !isFree;
   }
   const disk = []; // -1 is empty space, expanded representation
   const filePositions = new Map(); // map disk -> id: where it starts
@@ -79,7 +79,11 @@ function p2() {
     }
   }
 
-  for (let currentFile = fileSpans.length - 1; currentFile >= 0; currentFile--) {
+  for (
+    let currentFile = fileSpans.length - 1;
+    currentFile >= 0;
+    currentFile--
+  ) {
     const originalStart = filePositions.get(currentFile);
     let fileSize = fileSpans[currentFile];
 
