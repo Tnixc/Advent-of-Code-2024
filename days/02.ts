@@ -1,23 +1,25 @@
 import { INPUT } from "@/02";
+console.time("Part 1");
 const input = INPUT.split("\n").map((x) =>
   x
     .trim()
     .split(" ")
     .map((y) => Number(y)),
 );
-console.log(input);
 let c1 = 0;
 for (let report of input) {
   if (isDecreasing(report, false) || isIncreasing(report, false)) c1 += 1;
 }
-
 console.log(c1);
+console.timeEnd("Part 1");
+console.time("Part 2");
 let c2 = 0;
 for (let report of input) {
   if (isDecreasing(report, true) || isIncreasing(report, true)) c2 += 1;
 }
 
 console.log(c2);
+console.timeEnd("Part 2");
 
 function isIncreasing(arr: number[], canFail: boolean) {
   let needsFail = false;

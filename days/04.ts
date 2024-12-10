@@ -14,7 +14,7 @@ S.S.S.S.S.
 .A.A.A.A..
 M.M.M.M.M.
 ..........`;
-
+console.time("Part 1");
 const grid = input.split("\n").map((x) => `____${x}____`.split(""));
 for (let i = 0; i < 4; i++) {
   grid.unshift(Array(grid[0].length).fill("_"));
@@ -46,6 +46,8 @@ for (let y = 4; y < grid.length - 4; y++) {
 
 console.log(c1);
 
+console.timeEnd("Part 1");
+console.time("Part 2");
 let c2 = 0;
 for (let y = 4; y < grid.length - 4; y++) {
   for (let x = 4; x < grid[0].length - 4; x++) {
@@ -62,3 +64,4 @@ for (let y = 4; y < grid.length - 4; y++) {
 }
 
 console.log(c2);
+console.timeEnd("Part 2");

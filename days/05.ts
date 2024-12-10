@@ -49,9 +49,10 @@ for (let line of lines) {
   }
   if (!failed) passed.push(line);
 }
-
+console.time("Part 1");
 console.log(passed.map((x) => x[Math.floor(x.length / 2)]).reduce((a, b) => a + b));
-
+console.timeEnd("Part 1");
+console.time("Part 2");
 // part 2
 const incor = lines.filter((x) => !passed.includes(x));
 
@@ -72,3 +73,4 @@ for (let k = 0; k < 10; k++) {
 }
 
 console.log(incor.map((x) => x[Math.floor(x.length / 2)]).reduce((a, b) => a + b));
+console.timeEnd("Part 2");
