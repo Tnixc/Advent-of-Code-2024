@@ -44,3 +44,24 @@ fn solve(i: &str, depth: u64) -> () {
 fn main() {
     solve(input, 75);
 }
+
+// naive solution
+fn p1(nums: Vec<u64>) {
+    for _ in 0..25 {
+        let mut cur: Vec<u64> = Vec::new();
+        nums.iter().for_each(|&x| {
+            let s = x.to_string();
+            if x == 0 {
+                cur.push(1);
+            } else if s.len() % 2 == 0 {
+                let (x1, x2) = s.split_at(s.len() / 2);
+                cur.push(x1.parse::<u64>().unwrap());
+                cur.push(x2.parse::<u64>().unwrap());
+            } else {
+                cur.push(x * 2024)
+            }
+        });
+        nums = cur;
+        println!("{:?}", nums.len());
+    }
+}
