@@ -34,12 +34,18 @@ const buttons = INPUT.split("\n\n")
 
 // console.log(buttons);
 let c1 = 0;
-buttons.forEach((k) => {
-  const [a, b, c, d, e, g] = [k.a, k.b, k.c + 10000000000000, k.d, k.e, k.g + 10000000000000];
-  const y = (g * a - d * c) / (a * e - b * d);
-  const x = (c - b * y) / a;
+let c2 = 0;
 
+buttons.forEach((k) => {
+  let [a, b, c, d, e, g] = [k.a, k.b, k.c, k.d, k.e, k.g];
+  let y = (g * a - d * c) / (a * e - b * d);
+  let x = (c - b * y) / a;
+  c += 10000000000000;
+  g += 10000000000000;
   if (Number.isInteger(x) && Number.isInteger(y)) c1 += 3 * x + y;
+  y = (g * a - d * c) / (a * e - b * d);
+  x = (c - b * y) / a;
+  if (Number.isInteger(x) && Number.isInteger(y)) c2 += 3 * x + y;
 });
 
-console.log(c1);
+console.log([c1, c2]);
