@@ -15,12 +15,7 @@ Button A: X+69, Y+23
 Button B: X+27, Y+71
 Prize: X=18641, Y=10279`;
 const buttons = INPUT.split("\n\n")
-  .map((l) =>
-    l.split("\n").map((k) => {
-      const s = k.split(":")[1].split(",");
-      return s;
-    }),
-  )
+  .map((l) => l.split("\n").map((k) => k.split(":")[1].split(",")))
   .map((k) => {
     return {
       a: Number(k[0][0].split("+")[1]),
