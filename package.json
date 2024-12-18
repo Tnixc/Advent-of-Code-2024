@@ -25,5 +25,8 @@
     "23": "bun days/23.ts",
     "24": "bun days/24.ts",
     "25": "bun days/25.ts"
+  },
+  "dependencies": {
+    "ts-pq": "^1.0.0"
   }
 }
