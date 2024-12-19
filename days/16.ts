@@ -36,7 +36,7 @@ const t2 = `#################
 #S#.............#
 #################`;
 
-const grid = t.split("\n").map((x) => x.split(""));
+const grid = t2.split("\n").map((x) => x.split(""));
 const compare = (a, b) => a.cost - b.cost;
 const pq = new Heap(compare);
 
@@ -51,6 +51,7 @@ const dirs = [
 
 function walk() {
   let now = pq.pop();
+  const results = [];
   while (now) {
     console.log(now.y, now.x, now.h, now.cost);
     if (grid[now.y][now.x] === "E") {
@@ -60,7 +61,7 @@ function walk() {
     for (let nh = 0; nh < 4; nh++) {
       const [ny, nx] = [now.y + dirs[nh][0], now.x + dirs[nh][1]];
       if (grid[ny]?.[nx] === "#") continue; // if its a wall
-      if (now.h === nh - 2 || now.h === nh + 2) continue;
+      if (Math.abs(now.h - nh) === 2) continue;
       let isTurn = now.h != nh;
       pq.push({
         y: ny,
@@ -75,5 +76,6 @@ function walk() {
 }
 
 pq.push(start);
+
 console.log(walk());
 // console.log(visited.size);
