@@ -16,11 +16,12 @@ const pieces = INPUT_A.split(",")
 
 const designs = INPUT_B.split("\n");
 
-const cache = new Map<string, boolean>();
+const cache1 = new Map<string, boolean>();
+const cache2 = new Map<string, number>();
 
 function canCompose(word: string): boolean {
+  if (cache1.has(word)) return cache1.get(word);
   if (word === "") return true;
-  if (cache.has(word)) return cache.get(word);
 
   for (const p of pieces) {
     let l = p.length;
@@ -30,17 +31,43 @@ function canCompose(word: string): boolean {
     let rest = word.substring(l);
 
     if (start === p && canCompose(rest)) {
-      cache.set(word, true);
+      cache1.set(word, true);
       return true;
     }
   }
-  cache.set(word, false);
+  cache1.set(word, false);
   return false;
 }
 
-console.log(pieces);
+function posWays(word: string): number {
+  if (word === "") return 1;
+  if (cache2.has(word)) return cache2.get(word);
+  let nways = 0;
+  for (const p of pieces) {
+    let l = p.length;
+    if (l > word.length) continue;
+    let start = word.substring(0, l);
+    let rest = word.substring(l);
+    if (start === p) nways += posWays(rest);
+  }
+  cache2.set(word, nways);
+  return nways;
+}
 
-const res = [];
-designs.forEach((x) => res.push(canCompose(x)));
-console.log(cache);
-console.log(res.filter((x) => x).length);
+const res1 = [];
+const can = [];
+
+designs.forEach((x) => {
+  let t = canCompose(x);
+  res1.push(t);
+  can.push(x);
+});
+
+console.log(cache1);
+console.log(res1.filter((x) => x).length);
+
+const res2 = [];
+can.forEach((x) => res2.push(posWays(x)));
+
+console.log(res2.join(""));
+console.log(res2.reduce((a, b) => a + b));
