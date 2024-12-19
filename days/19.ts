@@ -55,7 +55,7 @@ const can: string[] = [];
 designs.forEach((x) => {
   let t = canCompose(x);
   res1.push(t);
-  can.push(x);
+  if (t) can.push(x);
 });
 
 console.log(res1.filter((x) => x).length);

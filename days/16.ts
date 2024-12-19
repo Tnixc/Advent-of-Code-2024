@@ -36,7 +36,7 @@ const t2 = `#################
 #S#.............#
 #################`;
 
-const grid = t2.split("\n").map((x) => x.split(""));
+const grid = INPUT.split("\n").map((x) => x.split(""));
 const compare = (a, b) => a.cost - b.cost;
 const pq = new Heap(compare);
 
@@ -49,35 +49,31 @@ const dirs = [
   [0, -1],
 ];
 
-function encodeState(y, x, h) {
-  return `${y},${x},${h}`;
-}
-
 const visited = new Set();
 const res = [];
-let min = Infinity;
+let minSteps = Infinity;
+let minCost = Infinity;
 function walk() {
   let now = pq.pop();
   while (now) {
-    if (now.cost > min) {
+    if (now.cost > minCost) {
       now = pq.pop();
       continue;
     }
+    // console.log(minCost, minSteps, now.hist.size);
     // console.log(now.y, now.x, now.h, now.cost);
     if (grid[now.y][now.x] === "E") {
       now.cost += 1000; //idk why, but it works
-      if (now.cost <= min) {
-        min = now.cost;
+      if (now.cost <= minCost) {
+        console.log(now);
+        minCost = now.cost;
+        minSteps = now.hist.size;
         res.push(now);
       }
       now = pq.pop();
       continue;
     }
-    // if (visited.has(encodeTwo(now.y, now.x))) {
-    //   now = pq.pop();
-    //   continue;
-    // }
-    // visited.add(encodeTwo(now.y, now.x));
+
     for (let nh = 0; nh < 4; nh++) {
       const [ny, nx] = [now.y + dirs[nh][0], now.x + dirs[nh][1]];
       if (grid[ny]?.[nx] === "#") continue; // if its a wall
