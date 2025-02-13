@@ -25,4 +25,6 @@ function main(input: string, depth: number): number {
   map_of_counts.forEach((v) => (total += v));
   return total;
 }
+
+console.log(main(INPUT, 25));
 console.log(main(INPUT, 75));
